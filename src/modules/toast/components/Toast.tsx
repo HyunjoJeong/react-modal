@@ -1,21 +1,21 @@
-import { fonts } from "@/global/styles";
+import { fonts } from "@/global/styles/fonts";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { toastStore } from "../store";
-import { toastCloseAnimation, toastOpenAnimation, toastTheme } from "../styles";
-import type { ToastProps } from "../types";
+import { toastAnimation, toastTheme } from "../styles";
+import type { ToastAnimationState, ToastProps } from "../types";
 
 const Toast = ({ id, message, options }: ToastProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [animationState, setAnimationState] = useState<ToastAnimationState>("open");
 
   const { top = 100, duration = 2500, theme = "white", cssOverrides } = options ?? {};
-  const animation = `${isVisible ? toastOpenAnimation : toastCloseAnimation} 0.3s ease`;
+  const animation = `${toastAnimation[animationState]} 0.3s ease`;
 
   useEffect(() => {
     const removeToast = () =>
       toastStore.setState(({ toasts }) => ({ toasts: toasts.filter((toast) => toast.id !== id) }));
 
-    const hideTimer = setTimeout(() => setIsVisible(false), duration - 300);
+    const hideTimer = setTimeout(() => setAnimationState("close"), duration - 250);
     const removeTimer = setTimeout(removeToast, duration);
 
     return () => {
