@@ -7,7 +7,7 @@ export type ToastAnimationState = keyof typeof toastAnimation;
 export type ToastTheme = keyof typeof toastTheme;
 
 export type ToastProps = {
-  id: number;
+  id: string;
   message: ReactNode;
   options?: {
     top?: CSSProperties["top"];
