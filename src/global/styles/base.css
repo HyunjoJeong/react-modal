@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif !important;
+}
+
+html {
+  background-color: #f9fafa;
+}
+
+body {
+  width: 100%;
+  max-width: 1080px;
+  min-height: 100svh;
+  margin: auto;
+
+  user-select: none;
+  background-color: #fff;
+  font-family: -apple-system, "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+img {
+  vertical-align: middle;
+  object-fit: cover;
+}
