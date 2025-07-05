@@ -1,6 +1,6 @@
 import AlertModal from "@/components/AlertModal";
 import LoginModal from "@/components/LoginModal";
-import { Button, ModalService, useModal } from "@/modules";
+import { Button, ModalService, toast, useModal } from "@/modules";
 import styled from "@emotion/styled";
 import Head from "next/head";
 
@@ -24,6 +24,7 @@ export default function Home() {
       </Head>
       <StyledMain>
         <div>
+          <StyledButton onClick={() => toast("토스트 메시지입니다")}>토스트</StyledButton>
           <StyledButton variant="filledPrimary" onClick={() => hookedLoginModal.open({})}>
             로그인 모달 열기 (hook 사용)
           </StyledButton>
