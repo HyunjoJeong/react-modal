@@ -1,8 +1,8 @@
-import type { Interpolation, Theme } from '@emotion/react';
-import type { ComponentType } from 'react';
+import type { Interpolation, Theme } from "@emotion/react";
+import type { ComponentType } from "react";
 
 export type ModalActionProps = {
-  isOpen: boolean;
+  state: "open" | "close";
   onClose: () => void;
 };
 

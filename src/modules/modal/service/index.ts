@@ -1,12 +1,12 @@
-import { MODAL_ANIMATION_DURATION } from '../constants';
-import { modalStore } from '../store';
+import { MODAL_ANIMATION_DURATION } from "../constants";
+import { modalStore } from "../store";
 import type {
   ModalActionProps,
   ModalComponent,
   ModalConfigProps,
   ModalCustomProps,
   ModalProps,
-} from '../types';
+} from "../types";
 
 export class ModalService<P extends ModalCustomProps> {
   private readonly id: string;
@@ -20,7 +20,7 @@ export class ModalService<P extends ModalCustomProps> {
   }
 
   open = (customProps: P) => {
-    const actionProps: ModalActionProps = { isOpen: true, onClose: this.close };
+    const actionProps: ModalActionProps = { state: "open", onClose: this.close };
     const props: ModalProps<P> = { ...actionProps, ...this.configProps, ...customProps };
 
     const newModalService = { id: this.id, Component: this.Component, props };
@@ -32,11 +32,11 @@ export class ModalService<P extends ModalCustomProps> {
   };
 
   close = () => {
-    // isOpen props를 false로 바꾸어 closing animation을 실행
+    // state props를 close로 바꾸어 closing animation을 실행
     modalStore.setState(({ mountedServices }) => {
       const nextState = mountedServices.map((service) => {
         if (service.id !== this.id) return service;
-        return { ...service, props: { ...service.props, isOpen: false } };
+        return { ...service, props: { ...service.props, state: "close" } };
       });
 
       return { mountedServices: nextState };

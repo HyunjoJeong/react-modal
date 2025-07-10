@@ -14,23 +14,23 @@ type Props = PropsWithChildren<ModalProps>;
  * @param closeOnEscape default "false"
  * @param closeOnOverlayClick default "false"
  */
-export const ModalBase = ({ isOpen, onClose, children, overrideStyles, ...configs }: Props) => {
+export const ModalBase = ({ state, onClose, children, overrideStyles, ...configs }: Props) => {
   const { lockScroll = true, closeOnEscape = false, closeOnOverlayClick = false } = configs;
 
-  const overlayAnimation = isOpen ? modalAnimation.overlay.open : modalAnimation.overlay.close;
-  const wrapperAnimation = isOpen ? modalAnimation.wrapper.open : modalAnimation.wrapper.close;
+  const overlayAnimation = modalAnimation.overlay[state];
+  const wrapperAnimation = modalAnimation.wrapper[state];
 
   const animate = (keyframe: Keyframes) => `${keyframe} ${MODAL_ANIMATION_DURATION}ms ease-out`;
 
   const handleOverlayClickClose = () => {
-    if (isOpen && closeOnOverlayClick) onClose();
+    if (state === "open" && closeOnOverlayClick) onClose();
   };
 
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    if (e.key === "Escape" && isOpen && closeOnEscape) onClose();
+    if (e.key === "Escape" && state === "open" && closeOnEscape) onClose();
   };
 
-  useScrollLock(isOpen && lockScroll);
+  useScrollLock(state === "open" && lockScroll);
 
   return (
     <FocusTrap
