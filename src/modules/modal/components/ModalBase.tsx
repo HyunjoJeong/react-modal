@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { FocusTrap } from "focus-trap-react";
 import type { KeyboardEventHandler, PropsWithChildren } from "react";
 import { MODAL_ANIMATION_DURATION } from "../constants";
+import { useCloseOnRouteChange } from "../hooks/useCloseOnRouteChange";
 import { modalAnimation } from "../styles";
 import type { ModalProps } from "../types";
 
@@ -13,9 +14,15 @@ type Props = PropsWithChildren<ModalProps>;
  * @param lockScroll default "true"
  * @param closeOnEscape default "false"
  * @param closeOnOverlayClick default "false"
+ * @param closeOnRouteChange default "true"
  */
 export const ModalBase = ({ state, onClose, children, overrideStyles, ...configs }: Props) => {
-  const { lockScroll = true, closeOnEscape = false, closeOnOverlayClick = false } = configs;
+  const {
+    lockScroll = true,
+    closeOnEscape = false,
+    closeOnOverlayClick = false,
+    closeOnRouteChange = true,
+  } = configs;
 
   const overlayAnimation = modalAnimation.overlay[state];
   const wrapperAnimation = modalAnimation.wrapper[state];
@@ -31,6 +38,7 @@ export const ModalBase = ({ state, onClose, children, overrideStyles, ...configs
   };
 
   useScrollLock(state === "open" && lockScroll);
+  useCloseOnRouteChange(closeOnRouteChange, onClose);
 
   return (
     <FocusTrap

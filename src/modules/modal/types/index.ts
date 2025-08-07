@@ -10,6 +10,7 @@ export type ModalConfigProps = {
   lockScroll?: boolean;
   closeOnEscape?: boolean;
   closeOnOverlayClick?: boolean;
+  closeOnRouteChange?: boolean;
 
   overrideStyles?: {
     overlay?: Interpolation<Theme>;
